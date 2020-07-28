@@ -1,0 +1,19 @@
+.container{
+	padding-top: 100px;
+	padding-left:  300px;
+	
+}
+
+.col{
+	margin-top: 150px;
+}
+body{
+	background-color: #DDD6F3;
+}
+
+h1{
+	font-family: 'Josefin Sans', sans-serif;
+	text-decoration: underline wavy purple;
+}
+
+

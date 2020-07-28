@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Text Editor</title>
+	<script src="https://kit.fontawesome.com/5112014d52.js" crossorigin="anonymous"></script>
+</head>
+<body onload="enableEditMode();">
+
+	<div>
+		<button onclick="execCmd('bold');"><i class="fas fa-bold"></i></button>
+		<button onclick="execCmd('italic');"><i class="fas fa-italic"></i></button>
+		<button onclick="execCmd('underline');"><i class="fas fa-underline"></i></button>
+		<button onclick="execCmd('strikeThrough');"><i class="fas fa-strikethrough"></i></button>
+		<button onclick="execCmd('justifyLeft');"><i class="fas fa-align-left"></i></button>
+		<button onclick="execCmd('justifyCenter');"><i class="fas fa-align-center"></i></button>
+		<button onclick="execCmd('justifyRight');"><i class="fas fa-align-right"></i></button>
+		<button onclick="execCmd('justifyFull');"><i class="fas fa-align-justify"></i></button>
+		<button onclick="execCmd('cut');"><i class="fas fa-cut"></i></button>
+		<button onclick="execCmd('copy');"><i class="fas fa-copy"></i></button>
+		<button onclick="execCmd('indent');"><i class="fas fa-indent"></i></button>
+
+		<button onclick="execCmd('subscript');"><i class="fas fa-subscript"></i></button>
+		<button onclick="execCmd('superscript');"><i class="fas fa-superscript"></i></button>
+		<button onclick="execCmd('undo');"><i class="fas fa-undo"></i></button>
+		<button onclick="execCmd('redo');"><i class="fas fa-redo"></i></button>
+
+		<button onclick="execCmd('insertUnorderedList');"><i class="fas fa-list-ul"></i></button>
+		<button onclick="execCmd('insertOrderedList');"><i class="fas fa-list-ol"></i></button>
+		<button onclick="execCmd('insertParagraph');"><i class="fas fa-paragraph"></i></button>
+
+		<select onchange="execCommandWithArg('formatBlock', this.value)">
+			<option value="H1">H1</option>
+			<option value="H2">H2</option>
+			<option value="H3">H3</option>
+			<option value="H4">H4</option>
+			<option value="H5">H5</option>
+			<option value="H6">H6</option>
+		</select>
+
+		<button onclick="execCommandWithArg('createLink',prompt('Enter a URL','http://'));"><i class="fas fa-link"></i></button>
+		<button onclick="execCmd('unlink');"><i class="fas fa-unlink"></i></button>
+		<button onclick="toogleSource();"><i class="fas fa-code"></i></button>
+		<button onclick="toggleEdit();">Toggle Edit</button>
+		<br/>
+
+		<select onchange="execCommandWithArg('fontName', this.value)">
+			<option value="Arial">Arial</option>
+			<option value="Comic Sans MS">Comic Sans MS</option>
+			<option value="Courier">Courier</option>
+			<option value="Georgia">Georgia</option>
+			<option value="Tahoma">Tahoma</option>
+			<option value="Times New Roman">Times New Roman</option>
+			<option value="Verdana">Verdana</option>
+		</select>
+
+		<select onchange="execCommandWithArg('fontSize', this.value)">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+		</select>
+
+		Fore Color: <input type="color" onchange="execCommandWithArg('foreColor', this.value)"/>
+		Background Color: <input type="color" onchange="execCommandWithArg('hiliteColor', this.value)"/>
+
+		<button onclick="execCommandWithArg('insertImage', prompt('Enter the image URL',''));"><i class="fas fa-file"></i></button>
+		<button onclick="execCmd('selectAll');">Select All</button>
+
+	</div>
+
+	<iframe name="textField" style="width: 1000px; height: 500px;"></iframe>
+	<script type="text/javascript">
+		
+		var showingSourceCode = false;
+		var isInEditMode = true;
+
+		function enableEditMode() {
+			textField.document.designMode = 'On';
+		}
+
+		function execCmd(cd){
+			textField.document.execCommand(cd , false ,null);
+		}
+
+		function execCommandWithArg(cd,arg){
+			textField.document.execCommand(cd,false,arg);
+		}
+
+		function toggleSource(){
+			if(showingSourceCode){
+				textField.document.getElementByTagName('body')[0].innerHTML = textField.document.getElementByTagName('body')[0].textContent;
+				showingSourceCode = false;
+			}else{
+				textField.document.getElementByTagName('body')[0].textContent = textField.document.getElementByTagName('body')[0].innerHTML;
+				showingSourceCode = true;
+			}
+		}
+
+		function toggleEdit(){
+			if(isInEditMode){
+				textField.document.designMode = 'Off';
+				isInEditMode = false;
+			}else{
+				textField.document.designMode = 'On';
+				isInEditMode = true;
+			}
+		}
+
+	</script>
+
+</body>
+</html>
